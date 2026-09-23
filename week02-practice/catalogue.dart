@@ -28,7 +28,6 @@ class Library {
   double get averagePages => books.isEmpty
       ? 0
       : books.fold<int>(0, (sum, book) => sum + book.pages) / books.length;
-  // fold works with an empty list; reduce would throw when there are no books.
 
   Map<String, int> get bookCountByAuthor => books.fold(<String, int>{}, (
         counts,
