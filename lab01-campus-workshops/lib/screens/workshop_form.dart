@@ -165,8 +165,9 @@ class _WorkshopFormState extends State<WorkshopForm> {
     );
     if (!mounted || selected == null) return;
     setState(() => _time = selected);
-    _timeText.text =
-        '${selected.hour.toString().padLeft(2, '0')}:${selected.minute.toString().padLeft(2, '0')}';
+    _timeText.text = formatTime(
+      DateTime(2000, 1, 1, selected.hour, selected.minute),
+    );
   }
 
   Future<void> _save() async {

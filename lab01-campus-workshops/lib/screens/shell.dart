@@ -26,6 +26,7 @@ class _ShellState extends State<Shell> {
   int _tab = 0;
 
   void _selectTab(int tab) {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
     Navigator.of(context).popUntil((route) => route.isFirst);
     setState(() => _tab = tab);
   }
