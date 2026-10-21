@@ -21,18 +21,18 @@ enum WorkshopCategory {
 }
 
 class Workshop {
-  const Workshop._({
+  const Workshop._(
+    this._attendees, {
     required this.id,
     required this.title,
     required this.category,
     required this.startsAt,
     required this.location,
     required this.capacity,
-    required List<String> attendees,
     required this.online,
     required this.description,
     required this.favourite,
-  }) : _attendees = attendees;
+  });
 
   factory Workshop({
     required String id,
@@ -46,19 +46,31 @@ class Workshop {
     String? description,
     bool favourite = false,
   }) => Workshop._(
-    id: id, title: title, category: category, startsAt: startsAt,
-    location: location, capacity: capacity,
-    attendees: List.unmodifiable(attendees), online: online,
-    description: description, favourite: favourite,
+    List.unmodifiable(attendees),
+    id: id,
+    title: title,
+    category: category,
+    startsAt: startsAt,
+    location: location,
+    capacity: capacity,
+    online: online,
+    description: description,
+    favourite: favourite,
   );
 
-  Workshop.empty() : this._(
-    id: DateTime.now().microsecondsSinceEpoch.toString(),
-    title: '', category: WorkshopCategory.craft,
-    startsAt: DateTime.now().add(const Duration(days: 1)),
-    location: '', capacity: 12, attendees: const [],
-    online: false, description: null, favourite: false,
-  );
+  Workshop.empty()
+    : this._(
+        const [],
+        id: DateTime.now().microsecondsSinceEpoch.toString(),
+        title: '',
+        category: WorkshopCategory.craft,
+        startsAt: DateTime.now().add(const Duration(days: 1)),
+        location: '',
+        capacity: 12,
+        online: false,
+        description: null,
+        favourite: false,
+      );
 
   final String id;
   final String title;
@@ -80,13 +92,24 @@ class Workshop {
   ({int taken, int free}) get places => (taken: count, free: freePlaces);
 
   Workshop copyWith({
-    String? title, WorkshopCategory? category, DateTime? startsAt,
-    String? location, int? capacity, List<String>? attendees, bool? online,
-    String? description, bool clearDescription = false, bool? favourite,
+    String? title,
+    WorkshopCategory? category,
+    DateTime? startsAt,
+    String? location,
+    int? capacity,
+    List<String>? attendees,
+    bool? online,
+    String? description,
+    bool clearDescription = false,
+    bool? favourite,
   }) => Workshop(
-    id: id, title: title ?? this.title, category: category ?? this.category,
-    startsAt: startsAt ?? this.startsAt, location: location ?? this.location,
-    capacity: capacity ?? this.capacity, attendees: attendees ?? this.attendees,
+    id: id,
+    title: title ?? this.title,
+    category: category ?? this.category,
+    startsAt: startsAt ?? this.startsAt,
+    location: location ?? this.location,
+    capacity: capacity ?? this.capacity,
+    attendees: attendees ?? this.attendees,
     online: online ?? this.online,
     description: clearDescription ? null : description ?? this.description,
     favourite: favourite ?? this.favourite,

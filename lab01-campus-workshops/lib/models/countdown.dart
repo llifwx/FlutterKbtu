@@ -25,8 +25,10 @@ final class Ended extends Countdown {
 }
 
 String countdownLabel(Countdown countdown) => switch (countdown) {
-  Upcoming(:final remaining) when remaining.inDays > 0 => 'In ${remaining.inDays} days',
-  Upcoming(:final remaining) when remaining.inHours > 0 => 'In ${remaining.inHours} hours',
+  Upcoming(:final remaining) when remaining.inDays > 0 =>
+    'In ${remaining.inDays} days',
+  Upcoming(:final remaining) when remaining.inHours > 0 =>
+    'In ${remaining.inHours} hours',
   Upcoming(:final remaining) => 'In ${remaining.inMinutes} min',
   Started(:final elapsed) => 'Started ${elapsed.inMinutes} min ago',
   Ended() => 'Ended',
