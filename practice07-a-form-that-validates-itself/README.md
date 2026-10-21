@@ -44,7 +44,7 @@ Formatting and analysis passed, and all five widget tests passed.
 
 ## Android Java setup on this machine
 
-The installed Java 26 failed Android's JdkImageTransform step. A portable [Microsoft OpenJDK 21](https://learn.microsoft.com/en-us/java/openjdk/download) is available in the ignored `.tools` directory of the parent workspace. System Java and Flutter settings were not changed. The Android build was not completed; web is the selected run target. To retry Android with a process-local override:
+The installed Java 26 failed Android's JdkImageTransform step. A portable [Microsoft OpenJDK 21](https://learn.microsoft.com/en-us/java/openjdk/download) is available in the ignored `.tools` directory of the parent workspace. System Java and Flutter settings were not changed. The Android build progressed with JDK 21 but needs the missing Android SDK CMake 3.22.1 package. Web is the selected run target. To retry Android after installing that SDK package, use a process-local override:
 
 ```powershell
 $env:JAVA_HOME = (Resolve-Path "..\.tools\jdk21\jdk-21.0.12.1+1").Path
@@ -65,4 +65,19 @@ If `flutter run -d chrome` cannot attach its web debugger, start the server sepa
 flutter run -d web-server --web-hostname 127.0.0.1 --web-port 7357
 ```
 
-Open http://127.0.0.1:7357 in Chrome. The five widget tests include the summary breakpoint and a simulated keyboard inset. The required Android keyboard screenshot has not been captured, and device screenshots still need to be added before submitting the assignment.
+Open http://127.0.0.1:7357 in Chrome. The five widget tests include the summary breakpoint and a simulated keyboard inset.
+
+For a web build with local rendering resources, run `flutter build web --no-web-resources-cdn` and serve `build/web` using a static HTTP server. This was used for the Android-browser screenshots below because the emulator could not reach external resources.
+
+## Required screenshots
+
+Both images are actual captures of this Flutter web app in Chrome on an Android emulator, using sample student details. They are included in this folder and embedded below.
+
+- `keyboard_open.png`: phone viewport, Confirm password focused, Android keyboard open, no overflow stripes.
+- `tablet.png`: tablet viewport at 2400 x 1600 pixels, successful sign-up summary in two columns.
+
+Keyboard Done was also verified to submit the completed form successfully. The emulator's display size and hardware-keyboard display preference were restored after capture.
+
+<img src="keyboard_open.png" alt="Sign-up form with Confirm password focused and Android keyboard open" width="360">
+
+<img src="tablet.png" alt="Account summary in two columns at tablet width" width="800">
