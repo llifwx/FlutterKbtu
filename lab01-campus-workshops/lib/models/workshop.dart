@@ -21,6 +21,7 @@ enum WorkshopCategory {
 }
 
 class Workshop {
+  // The factory freezes incoming lists; only this private constructor is const.
   const Workshop._(
     this._attendees, {
     required this.id,

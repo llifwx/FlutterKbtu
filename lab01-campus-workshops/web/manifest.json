@@ -1,12 +1,12 @@
 {
-    "name": "campus_workshops",
-    "short_name": "campus_workshops",
+    "name": "Campus Atelier",
+    "short_name": "Atelier",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
-    "orientation": "portrait-primary",
+    "background_color": "#FDF7FF",
+    "theme_color": "#67548E",
+    "description": "Campus workshops for curious makers.",
+    "orientation": "any",
     "prefer_related_applications": false,
     "icons": [
         {

@@ -125,6 +125,29 @@ class _DetailScreenState extends State<DetailScreen> {
     final (:taken, :free) = _workshop.places;
     final joined = _workshop.contains(widget.arguments.profile.name);
     final started = !_workshop.startsAt.isAfter(_now);
+    Widget fact(IconData icon, String title, String subtitle) => Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      child: Row(
+        children: [
+          Icon(icon),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(title, style: theme.textTheme.bodyLarge),
+                Text(
+                  subtitle,
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
     Widget pill(String text) => DecoratedBox(
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
@@ -214,37 +237,24 @@ class _DetailScreenState extends State<DetailScreen> {
                     ListView(
                       padding: const EdgeInsets.all(20),
                       children: [
-                        ListTile(
-                          contentPadding: EdgeInsets.zero,
-                          leading: const Icon(Icons.calendar_month_outlined),
-                          title: Text(formatDateTime(_workshop.startsAt)),
-                          subtitle: Text(
-                            started
-                                ? 'This workshop has started'
-                                : 'See you at the studio',
-                          ),
+                        fact(
+                          Icons.calendar_month_outlined,
+                          formatDateTime(_workshop.startsAt),
+                          started
+                              ? 'This workshop has started'
+                              : 'See you at the studio',
                         ),
-                        ListTile(
-                          contentPadding: EdgeInsets.zero,
-                          leading: Icon(
-                            _workshop.online
-                                ? Icons.link
-                                : Icons.place_outlined,
-                          ),
-                          title: Text(_workshop.location),
-                          subtitle: Text(
-                            _workshop.online
-                                ? 'Online workshop link'
-                                : 'On campus',
-                          ),
+                        fact(
+                          _workshop.online ? Icons.link : Icons.place_outlined,
+                          _workshop.location,
+                          _workshop.online
+                              ? 'Online workshop link'
+                              : 'On campus',
                         ),
-                        ListTile(
-                          contentPadding: EdgeInsets.zero,
-                          leading: const Icon(Icons.groups_outlined),
-                          title: Text(
-                            '$taken of ${_workshop.capacity} places taken',
-                          ),
-                          subtitle: Text('$free free places'),
+                        fact(
+                          Icons.groups_outlined,
+                          '$taken of ${_workshop.capacity} places taken',
+                          '$free free places',
                         ),
                         if (_workshop.description case final description?) ...[
                           const SizedBox(height: 16),
@@ -268,8 +278,13 @@ class _DetailScreenState extends State<DetailScreen> {
                                 ListTile(
                                   selected:
                                       name == widget.arguments.profile.name,
-                                  leading: const Icon(Icons.person_outline),
-                                  title: Text(name),
+                                  title: Row(
+                                    children: [
+                                      const Icon(Icons.person_outline),
+                                      const SizedBox(width: 16),
+                                      Expanded(child: Text(name)),
+                                    ],
+                                  ),
                                   trailing:
                                       name == widget.arguments.profile.name
                                       ? const Chip(label: Text('You'))
