@@ -1,0 +1,11 @@
+analyzer:
+  exclude:
+    - build/**
+    - web/**
+    - windows/**
+    - android/**
+include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    unawaited_futures: true
